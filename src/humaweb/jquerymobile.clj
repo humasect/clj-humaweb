@@ -3,7 +3,8 @@
         [hiccup.core :only [html]]
         [hiccup.page-helpers :only [include-css include-js html5
                                     unordered-list]]
-        [humaweb.core]))
+        [humaweb.core]
+        [humaweb.util :only [map2s]]))
 
 ;; (defpartial data-role [name & content]
 ;;   [:div {:data-role name}
@@ -46,7 +47,7 @@
       (navlink-icon-to '/ "home" "Home")
       header
       [:div {:data-role "navbar"}
-       (unordered-list (map #(navlink-to (first %) (first (rest %))) navlinks))
+       (unordered-list (map2s 'navlink-to navlinks))
        ]
       (navlink-icon-to 'contact-us "info" "Contact Us")]
      [:div {:data-role "content"} content]

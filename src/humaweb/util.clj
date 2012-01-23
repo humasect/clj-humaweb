@@ -1,3 +1,4 @@
 (ns humaweb.util)
 
-(defn unzip [] 4)
+(defn map2s [f a]
+  (map #(@(resolve f) (first %) (first (rest %))) a))
