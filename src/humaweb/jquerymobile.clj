@@ -46,7 +46,7 @@
       (navlink-icon-to '/ "home" "Home")
       header
       [:div {:data-role "navbar"}
-       ;(unordered-list navlinks)
+       (unordered-list (map #(navlink-to (first %) (first (rest %))) navlinks))
        ]
       (navlink-icon-to 'contact-us "info" "Contact Us")]
      [:div {:data-role "content"} content]
