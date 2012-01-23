@@ -23,7 +23,7 @@
    content])
 
 (defpartial jqm-page [route title &
-                      {:keys [header footer js css navlinks content]}]
+                      {:keys [header footer js css navbar content]}]
   (html5
    [:head
     [:title title]
@@ -47,7 +47,7 @@
       (navlink-icon-to '/ "home" "Home")
       header
       [:div {:data-role "navbar"}
-       (unordered-list (map2s 'navlink-to navlinks))
+       (unordered-list navbar)
        ]
       (navlink-icon-to 'contact-us "info" "Contact Us")]
      [:div {:data-role "content"} content]
