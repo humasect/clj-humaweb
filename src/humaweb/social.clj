@@ -1,31 +1,15 @@
 (ns humaweb.social
   (:use [hiccup.page-helpers :only [javascript-tag]]
-        [noir.core :only [defpartial]]))
-
-(defpartial social-head []
-  (facebook-head)
-  (google-head)
-  (twitter-head))
-
-(defpartial social-buttons []
-  [:table
-   [:tr
-    [:td (twitter-buttons)]
-    [:td (facebook-buttons)]
-    [:td (google-buttons)]]])
-
-(defn- social-link [name alt]
-  (link-to-nw (str "http://www." name ".com/humasect")
-              (image (str name ".png") alt)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        [noir.core :only [defpartial]]
+        [humaweb.core :only [link-to-nw image]]))
 
 (defpartial facebook-head []
+  [:div#fb-root]
   (javascript-tag "(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = '//connect.facebook.net/en_US/all.js#xfbml=1&appId=266792696721807';
+  js.src ='//connect.facebook.net/en_US/all.js#xfbml=1&appId=242435982498011';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));"))
 
@@ -53,7 +37,9 @@
                             :data-lang "en"} "Tweet"])
 
 (defpartial twitterfeed-head []
-  (javascript-tag "$('#twitter-feed').jTweetsAnywhere({
+  ;;;; needs jquery
+  (javascript-tag "$(function() {
+    $('#twitter-feed').jTweetsAnywhere({
         username: $('#twitter-feed').attr('username'),
         count: 3,
         showTweetFeed: {
@@ -65,9 +51,28 @@
             showActionFavorite: true
         },
         showTweetBox: {
-            label: '<span style=\'color: #303030\'>Spread the word ...</span>'
+            label: '<span style=\"color: #303030\">Spread the word ...</span>'
         }
-    });"))
+    });});"))
 
 (defpartial twitterfeed-view [username]
   [:div#twitter-feed {:username username}])
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defpartial social-head []
+  (facebook-head)
+  (google-head)
+  (twitter-head))
+
+(defpartial social-buttons []
+  [:table
+   [:tr
+    [:td (twitter-buttons)]
+    [:td (facebook-buttons)]
+    [:td (google-buttons)]]])
+
+(defn social-link [name alt]
+  (link-to-nw (str "http://www." name ".com/humasect")
+              (image (str name ".png") alt)))
+

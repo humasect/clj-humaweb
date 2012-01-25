@@ -22,6 +22,17 @@
   [:a {:href route :data-icon icon}
    content])
 
+(defpartial selectmenu [name values]
+  [:select {:id name
+            :name name
+            ;;:class "ui-box"
+            ;;:data-icon "gear"
+            :data-native-menu "false"
+            :onchange (str "window.top.location.href = "
+                           "this.options[this.selectedIndex].value")}
+   (map2s 'humaweb.core/option values)
+   ])
+
 (defpartial jqm-page [route title &
                       {:keys [header footer js css navbar content]}]
   (html5
